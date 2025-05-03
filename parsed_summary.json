@@ -1,166 +1,38 @@
 {
   "contracts": [
     {
-      "name": "DSToken",
+      "name": "USDP",
       "inheritance": [
-        "ProxyTarget",
-        "Initializable",
-        "StandardToken"
+        "PaxosTokenV2"
       ],
       "functions": [
-        "initialize",
-        "setFeature",
-        "setFeatures",
-        "setCap",
-        "totalIssued",
-        "issueTokens",
-        "issueTokensCustom",
-        "issueTokensWithMultipleLocks",
-        "issueTokensWithNoCompliance",
-        "burn",
-        "omnibusBurn",
-        "seize",
-        "omnibusSeize",
-        "transfer",
-        "transferFrom",
-        "postTransferImpl",
-        "getWalletAt",
-        "walletCount",
-        "checkWalletsForList",
-        "addWalletToList",
-        "removeWalletFromList",
-        "balanceOfInvestor",
-        "getAssetTrackingMode",
-        "updateOmnibusInvestorBalance",
-        "emitOmnibusTransferEvent",
-        "emitOmnibusTBEEvent",
-        "emitOmnibusTBETransferEvent",
-        "updateInvestorsBalancesOnTransfer",
-        "updateInvestorBalance",
-        "preTransferCheck",
-        "getCommonServices"
+        "name",
+        "symbol",
+        "decimals"
       ],
-      "modifiers": [
-        "canTransfer"
-      ],
+      "modifiers": [],
       "functionModifiers": {
-        "initialize": [
-          "virtual",
-          "initializer",
-          "forceInitializeFromProxy"
-        ],
-        "setFeature": [
-          "onlyMaster"
-        ],
-        "setFeatures": [
-          "onlyMaster"
-        ],
-        "setCap": [
-          "override",
-          "onlyTransferAgentOrAbove"
-        ],
-        "totalIssued": [],
-        "issueTokens": [
-          "override"
-        ],
-        "issueTokensCustom": [
+        "name": [
           "virtual",
           "override"
         ],
-        "issueTokensWithMultipleLocks": [
+        "symbol": [
           "virtual",
-          "override",
-          "onlyIssuerOrAbove"
-        ],
-        "issueTokensWithNoCompliance": [
-          "virtual",
-          "override",
-          "onlyIssuerOrAbove"
-        ],
-        "burn": [
-          "virtual",
-          "override",
-          "onlyIssuerOrTransferAgentOrAbove"
-        ],
-        "omnibusBurn": [
-          "override",
-          "onlyTransferAgentOrAbove"
-        ],
-        "seize": [
-          "virtual",
-          "override",
-          "onlyTransferAgentOrAbove"
-        ],
-        "omnibusSeize": [
-          "override",
-          "onlyTransferAgentOrAbove"
-        ],
-        "transfer": [
-          "virtual",
-          "override",
-          "canTransfer"
-        ],
-        "transferFrom": [
-          "virtual",
-          "override",
-          "canTransfer"
-        ],
-        "postTransferImpl": [],
-        "getWalletAt": [
           "override"
         ],
-        "walletCount": [
+        "decimals": [
+          "virtual",
           "override"
-        ],
-        "checkWalletsForList": [],
-        "addWalletToList": [],
-        "removeWalletFromList": [],
-        "balanceOfInvestor": [
-          "override"
-        ],
-        "getAssetTrackingMode": [],
-        "updateOmnibusInvestorBalance": [
-          "override",
-          "onlyOmnibusWalletController"
-        ],
-        "emitOmnibusTransferEvent": [
-          "override",
-          "onlyOmnibusWalletController"
-        ],
-        "emitOmnibusTBEEvent": [
-          "override",
-          "onlyTBEOmnibus"
-        ],
-        "emitOmnibusTBETransferEvent": [
-          "override",
-          "onlyTBEOmnibus"
-        ],
-        "updateInvestorsBalancesOnTransfer": [],
-        "updateInvestorBalance": [
-          "override"
-        ],
-        "preTransferCheck": [
-          "override"
-        ],
-        "getCommonServices": []
+        ]
       },
-      "roleIndicators": [
-        "onlyMaster",
-        "onlyTransferAgentOrAbove",
-        "onlyIssuerOrAbove",
-        "onlyIssuerOrTransferAgentOrAbove",
-        "burn",
-        "omnibusburn",
-        "seize",
-        "omnibusseize",
-        "onlyOmnibusWalletController",
-        "onlyTBEOmnibus"
-      ],
+      "roleIndicators": [],
+      "stateRoles": [],
+      "specialMechanisms": [],
       "upgradeability": {
         "usesDelegateCall": false,
-        "hasInitializeFunction": true,
+        "hasInitializeFunction": false,
         "usesStorageGap": false,
-        "inheritsUpgradeable": true
+        "inheritsUpgradeable": false
       }
     }
   ]

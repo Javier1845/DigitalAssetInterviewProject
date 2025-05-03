@@ -21,6 +21,8 @@ try {
                 modifiers: [],
                 functionModifiers: {},
                 roleIndicators: new Set(),
+                stateRoles: new Set(),
+                specialMechanisms: new Set(),
                 upgradeability: {
                     usesDelegateCall: false,
                     hasInitializeFunction: false,
@@ -29,10 +31,13 @@ try {
                 }
             };
 
+            const complianceKeywords = ['freeze', 'unfreeze', 'wipe', 'pause', 'blacklist', 'lock'];
+
             node.subNodes.forEach(sub => {
                 if (sub.type === 'FunctionDefinition') {
                     contract.functions.push(sub.name);
 
+                    // Capture modifiers attached to functions
                     if (sub.modifiers) {
                         contract.functionModifiers[sub.name] = sub.modifiers.map(m => m.name);
                         sub.modifiers.forEach(m => {
@@ -42,13 +47,32 @@ try {
                         });
                     }
 
+                    // Check for compliance-related function names
                     const lowerName = sub.name.toLowerCase();
-                    if (['mint', 'burn', 'seize', 'pause', 'blacklist', 'whitelist'].some(keyword => lowerName.includes(keyword))) {
-                        contract.roleIndicators.add(lowerName);
+                    complianceKeywords.forEach(keyword => {
+                        if (lowerName.includes(keyword)) {
+                            contract.specialMechanisms.add(keyword);
+                        }
+                    });
+
+                    if (lowerName.includes('initialize')) {
+                        contract.upgradeability.hasInitializeFunction = true;
                     }
 
-                    if (sub.name.toLowerCase().includes('initialize')) {
-                        contract.upgradeability.hasInitializeFunction = true;
+                    // Scan function body for delegatecall
+                    if (sub.body && sub.body.statements) {
+                        sub.body.statements.forEach(statement => {
+                            if (statement.type === 'ExpressionStatement' &&
+                                statement.expression.type === 'FunctionCall') {
+
+                                const expr = statement.expression.expression;
+
+                                if ((expr.memberName && expr.memberName.includes('delegatecall')) ||
+                                    (expr.name && expr.name.includes('delegatecall'))) {
+                                    contract.upgradeability.usesDelegateCall = true;
+                                }
+                            }
+                        });
                     }
                 }
 
@@ -61,6 +85,11 @@ try {
 
                 if (sub.type === 'StateVariableDeclaration') {
                     sub.variables.forEach(variable => {
+                        const varName = variable.name.toLowerCase();
+                        if (varName.includes('owner')) contract.stateRoles.add('Owner');
+                        if (varName.includes('pauser')) contract.stateRoles.add('Pauser');
+                        if (varName.includes('assetprotector') || varName.includes('asset_protector')) contract.stateRoles.add('Asset Protector');
+
                         if (variable.name.includes('__gap') && variable.typeName.type === 'ArrayTypeName') {
                             contract.upgradeability.usesStorageGap = true;
                         }
@@ -73,7 +102,16 @@ try {
                 contract.upgradeability.inheritsUpgradeable = true;
             }
 
+            const inheritedRoles = ['Ownable', 'Pausable', 'AccessControl'];
+            inheritedRoles.forEach(roleContract => {
+                if (contract.inheritance.includes(roleContract)) {
+                    contract.stateRoles.add(roleContract);
+                }
+            });
+
             contract.roleIndicators = Array.from(contract.roleIndicators);
+            contract.stateRoles = Array.from(contract.stateRoles);
+            contract.specialMechanisms = Array.from(contract.specialMechanisms);
 
             summary.contracts.push(contract);
         }
