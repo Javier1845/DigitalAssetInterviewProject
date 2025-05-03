@@ -1,0 +1,167 @@
+{
+  "contracts": [
+    {
+      "name": "DSToken",
+      "inheritance": [
+        "ProxyTarget",
+        "Initializable",
+        "StandardToken"
+      ],
+      "functions": [
+        "initialize",
+        "setFeature",
+        "setFeatures",
+        "setCap",
+        "totalIssued",
+        "issueTokens",
+        "issueTokensCustom",
+        "issueTokensWithMultipleLocks",
+        "issueTokensWithNoCompliance",
+        "burn",
+        "omnibusBurn",
+        "seize",
+        "omnibusSeize",
+        "transfer",
+        "transferFrom",
+        "postTransferImpl",
+        "getWalletAt",
+        "walletCount",
+        "checkWalletsForList",
+        "addWalletToList",
+        "removeWalletFromList",
+        "balanceOfInvestor",
+        "getAssetTrackingMode",
+        "updateOmnibusInvestorBalance",
+        "emitOmnibusTransferEvent",
+        "emitOmnibusTBEEvent",
+        "emitOmnibusTBETransferEvent",
+        "updateInvestorsBalancesOnTransfer",
+        "updateInvestorBalance",
+        "preTransferCheck",
+        "getCommonServices"
+      ],
+      "modifiers": [
+        "canTransfer"
+      ],
+      "functionModifiers": {
+        "initialize": [
+          "virtual",
+          "initializer",
+          "forceInitializeFromProxy"
+        ],
+        "setFeature": [
+          "onlyMaster"
+        ],
+        "setFeatures": [
+          "onlyMaster"
+        ],
+        "setCap": [
+          "override",
+          "onlyTransferAgentOrAbove"
+        ],
+        "totalIssued": [],
+        "issueTokens": [
+          "override"
+        ],
+        "issueTokensCustom": [
+          "virtual",
+          "override"
+        ],
+        "issueTokensWithMultipleLocks": [
+          "virtual",
+          "override",
+          "onlyIssuerOrAbove"
+        ],
+        "issueTokensWithNoCompliance": [
+          "virtual",
+          "override",
+          "onlyIssuerOrAbove"
+        ],
+        "burn": [
+          "virtual",
+          "override",
+          "onlyIssuerOrTransferAgentOrAbove"
+        ],
+        "omnibusBurn": [
+          "override",
+          "onlyTransferAgentOrAbove"
+        ],
+        "seize": [
+          "virtual",
+          "override",
+          "onlyTransferAgentOrAbove"
+        ],
+        "omnibusSeize": [
+          "override",
+          "onlyTransferAgentOrAbove"
+        ],
+        "transfer": [
+          "virtual",
+          "override",
+          "canTransfer"
+        ],
+        "transferFrom": [
+          "virtual",
+          "override",
+          "canTransfer"
+        ],
+        "postTransferImpl": [],
+        "getWalletAt": [
+          "override"
+        ],
+        "walletCount": [
+          "override"
+        ],
+        "checkWalletsForList": [],
+        "addWalletToList": [],
+        "removeWalletFromList": [],
+        "balanceOfInvestor": [
+          "override"
+        ],
+        "getAssetTrackingMode": [],
+        "updateOmnibusInvestorBalance": [
+          "override",
+          "onlyOmnibusWalletController"
+        ],
+        "emitOmnibusTransferEvent": [
+          "override",
+          "onlyOmnibusWalletController"
+        ],
+        "emitOmnibusTBEEvent": [
+          "override",
+          "onlyTBEOmnibus"
+        ],
+        "emitOmnibusTBETransferEvent": [
+          "override",
+          "onlyTBEOmnibus"
+        ],
+        "updateInvestorsBalancesOnTransfer": [],
+        "updateInvestorBalance": [
+          "override"
+        ],
+        "preTransferCheck": [
+          "override"
+        ],
+        "getCommonServices": []
+      },
+      "roleIndicators": [
+        "onlyMaster",
+        "onlyTransferAgentOrAbove",
+        "onlyIssuerOrAbove",
+        "onlyIssuerOrTransferAgentOrAbove",
+        "burn",
+        "omnibusburn",
+        "seize",
+        "omnibusseize",
+        "onlyOmnibusWalletController",
+        "onlyTBEOmnibus"
+      ],
+      "upgradeability": {
+        "usesDelegateCall": false,
+        "hasInitializeFunction": true,
+        "usesStorageGap": false,
+        "inheritsUpgradeable": true
+      }
+    }
+  ]
+}
