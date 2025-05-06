@@ -2,7 +2,11 @@ import openai
 import json
 
 # Load your OpenAI API key
-client = openai.OpenAI(api_key='OPEAI_API_KEY')  # ← Replace with your key 
+import openai
+import os
+
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+ 
 
 # Load contract summary from file
 with open('parsed_summary.json', 'r') as f:
