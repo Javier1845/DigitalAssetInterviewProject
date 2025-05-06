@@ -5,9 +5,7 @@ cd Project1
 Install Node.js dependencies:
 npm install
 
-(Optional) Set up Python virtual environment:
-python -m venv .venv
-.\.venv\Scripts\activate
+(Optional) Set up Python virtual environment: .venv\Scripts\activate
 
 Set your OpenAI API key inside generate_quick_study.py
 
