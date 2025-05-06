@@ -7,7 +7,7 @@ npm install
 
 (Optional) Set up Python virtual environment: .venv\Scripts\activate
 
-Set your OpenAI API key inside generate_quick_study.py
+Set your OpenAI API key inside .env
 
 Download a Solidity contract file from Etherscan (copy/paste the verified source code)
 
