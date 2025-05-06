@@ -9,9 +9,6 @@ npm install
 python -m venv .venv
 .\.venv\Scripts\activate
 
-Install Python dependencies:
-pip install -r requirements.txt
-
 Set your OpenAI API key inside generate_quick_study.py
 
 Download a Solidity contract file from Etherscan (copy/paste the verified source code)
